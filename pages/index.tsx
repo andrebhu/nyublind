@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             </p>
           </div>
           <div className="col-6 auth-widget">
-            <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="default" />
+            <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
           </div>
         </div>
       ) : (
