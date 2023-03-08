@@ -1,38 +1,57 @@
 import type { NextPage } from 'next'
+import Head from 'next/head'
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Account from '../components/Account'
 import Footer from '../components/Footer'
 
-const Home: NextPage = () => {
+// https://supabase.com/docs/guides/auth/auth-helpers
+// https://supabase.com/docs/guides/auth/auth-helpers/nextjs
+
+// https://nextjs.org/docs/api-reference/next/head
+// https://nextjs.org/docs/api-reference/data-fetching/get-initial-props#typescript
+
+const Index: NextPage = () => {
   const session = useSession()
   const supabase = useSupabaseClient()
 
-  return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? (
-        <div className="row">
+  // TODO: Update Home landing page to show off NYU Blind
+  if (!session) {
+    return (
+      <>
+        <Head>
+          <title>NYU Blind - For NYU by NYU</title>
+        </Head>
+        <div className="container p-5">
+          <div className="row align-items-center">
+            <div className="justify-content-center">
+              <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
+            </div></div>
+        </div>
+
+        {/* <div className="row">
           <div className="col-6">
-            <h1 className="header">Supabase Auth + Storage</h1>
+            <h1 className="header">NYU Blind</h1>
             <p className="">
-              Experience our Auth and Storage through a simple profile management example. Create a
-              user profile and upload an avatar image. Fast, simple, secure.
+              A social media platform built for NYU students by NYU students
             </p>
           </div>
           <div className="col-6 auth-widget">
             <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
           </div>
-        </div>
-      ) : (
-        <>
-          <h3>Account</h3>
-          <Account session={session} />
-        </>
-      )}
+        </div> */}
+      </>
+    )
+  }
 
+  // TODO: Redirect to `/home` or something?
+  return (
+    <>
+      <h3>Account</h3>
+      <Account session={session} />
       <Footer />
-    </div>
+    </>
   )
 }
 
-export default Home
+export default Index
