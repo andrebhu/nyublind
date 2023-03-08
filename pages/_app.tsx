@@ -1,4 +1,4 @@
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/globals.css'
 
 import { useState, useEffect } from 'react'
@@ -18,7 +18,7 @@ function MyApp({
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
 
   useEffect(() => {
-    require("../node_modules/bootstrap/dist/js/bootstrap.min.js");
+    require("bootstrap/dist/js/bootstrap.min.js")
   }, []);
 
   return (

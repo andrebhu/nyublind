@@ -12,9 +12,8 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession()
 
-  console.log(req.url);
   if (!session) {
-    return NextResponse.redirect(new URL('/itworks', req.url))
+    return NextResponse.redirect(new URL('/', req.url))
   }
 
   return res
@@ -23,8 +22,6 @@ export async function middleware(req: NextRequest) {
 // Paths to apply middleware to, only for authenticated users
 export const config = {
   matcher: [
-    '/home',
-    '/testing',
-    '/private'
+    '/profile',
   ],
 }

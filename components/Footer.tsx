@@ -1,8 +1,10 @@
-export default function Footer({ }) {
+export default function Footer() {
   return (
     <div className="footer">
-      <div className="flex-center">
-        <span className="text-sm">Made by some NYU students</span>
+      <div className="container">
+        <div className="flex-center">
+          <span className="text-sm">A senior design project</span>
+        </div>
       </div>
     </div>
   )
