@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession()
 
-  if (!session) {
+  if (!session) {w
     return NextResponse.redirect(new URL('/', req.url))
   }
 
