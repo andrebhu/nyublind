@@ -1,0 +1,59 @@
+
+{% extends 'news/__base.html' %}
+{% load humanize %}
+{% load mptt_tags %}
+{% load news_extra %}
+
+
+
+
+
+{% block content %}
+<article class="site-content-dense">
+
+
+
+<table  border="0" cellpadding="0" cellspacing="0" class="item-list">
+        {% news_item item=item rank=None hide_text=False user=user %}
+</table>
+
+
+
+
+{% if comment_form %}
+<form method="POST" class="comment-form clearfix">{% csrf_token %}
+    {{ comment_form.text }}
+    <p class="clearfix small"></p>
+    <button type="submit">add comment</button>
+    <ul class="horizontal-list">
+        <li><a class="smaller" href="{% url 'zen' %}">guidelines</a></li>
+        <li><a class="smaller" href="javascript:toggleFormattingHelp()">formatting help</a></li>
+    </ul>
+</form>
+
+{% include "news/formatting_help.html" %}
+
+{% endif %}
+
+
+<br><br>
+
+
+<table  border="0" cellpadding="0" cellspacing="0" class="item-list">
+    {% recursetree item.comments.all  %}
+            {% news_item item=node rank=None show_text=True hide_text=False user=user %}
+            {% if not node.is_leaf_node %}
+            <tr><td colspan="3" style="padding-left:30px;">
+                    <table border="0" cellpadding="0" cellspacing="0" class="item-list" style="border-left:1px solid grey;">
+                        {{ children }}
+                    </table>
+            </td></tr>
+            {% endif %}
+    {% endrecursetree %}
+</table>
+
+
+
+
+</article>
+{% endblock content %}
