@@ -1,13 +1,8 @@
 
-# pythonic-news
-A Hacker News lookalike written in Python/Django, powering [https://news.python.sc](https://news.python.sc)
+# nyublind
 
-
-
-[![screenshot](http://cdn.sebastiansteins.com/screenshot-news-python-sc.png "Screenshot")](https://news.python.sc)
-
-
-## Setup for local development
+A Hacker News lookalike written in Python/Django, modified for
+NYU students
 
 ### Set up virtual environment
 ```shell script

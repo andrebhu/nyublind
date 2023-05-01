@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'TODO'  # TODO
+SECRET_KEY = 'secretkey'  # TODO
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,7 +30,6 @@ DEBUG = True
 
 USE_X_FORWARDED_HOST = True
 ALLOWED_HOSTS = [
-    'news.python.sc',
     'localhost',
     '127.0.0.1',
 ]
@@ -53,8 +52,6 @@ INSTALLED_APPS = [
     'accounts',
     'news',
     'emaildigest',
-
-
 ]
 
 MIDDLEWARE = [
@@ -170,4 +167,4 @@ ACCEPT_UNINVITED_REGISTRATIONS = True
 
 SITE_NAME = 'NYU Blind'
 SITE_URL = 'https://nyu.blind'
-SITE_DOMAIN = 'news.python.sc'
+SITE_DOMAIN = 'localhost'
