@@ -162,9 +162,11 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
 
+# ACCEPT_UNINVITED_REGISTRATIONS = False
 ACCEPT_UNINVITED_REGISTRATIONS = True
 
 
 SITE_NAME = 'NYU Blind'
-SITE_URL = 'https://nyu.blind'
+SITE_URL = 'https://localhost'
+# SITE_URL = 'https://localhost'
 SITE_DOMAIN = 'localhost'

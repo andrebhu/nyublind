@@ -55,16 +55,17 @@ def invite(request, pk):
 
 
 def register(request):
-    invite_code = request.GET.get('invite')
-    try:
-        invitation = Invitation.objects.get(invite_code=invite_code)
-    except:
-        invitation = None
+    # invite_code = request.GET.get('invite')
+    # try:
+    #     invitation = Invitation.objects.get(invite_code=invite_code)
+    # except:
+    #     invitation = None
+    invitation = None
     instance = CustomUser(used_invitation=invitation, 
                           parent=getattr(invitation, 'inviting_user', None), 
                           email=getattr(invitation, 'invited_email_address', None))
-    if not settings.ACCEPT_UNINVITED_REGISTRATIONS and (invitation is None or not getattr(invitation, 'active', False)):
-        return render(request, 'accounts/register_closed.html')
+    # if not settings.ACCEPT_UNINVITED_REGISTRATIONS and (invitation is None or not getattr(invitation, 'active', False)):
+    #     return render(request, 'accounts/register_closed.html')
     form = RegisterForm(request.POST or None, instance=instance)
     if request.method == 'POST':
         if form.is_valid():

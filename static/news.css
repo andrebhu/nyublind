@@ -40,8 +40,7 @@ button { padding: 0.25em; }
 a { color: inherit; }
 .green { color:green; }
 
-nav#top-bar { background-color:#306998; }
-nav#footer-bar { background-color:#FFD43B; }
+nav#top-bar { background-color:#8856d9; }
 main { background-color: #EDF3F9; }
 nav#top-bar * { color:#FFE873; }
 
