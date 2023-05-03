@@ -73,32 +73,17 @@ class Story(Item):
         ]
     is_story = True
 
-    # class Meta:
-    #     ordering = ['-pk']
     title = models.CharField(max_length=255, blank=True)
     url = models.URLField(null=True, blank=True)
     text = models.TextField(null=True, blank=True)
     duplicate_of = models.ForeignKey('Story', on_delete=models.CASCADE, null=True)
     domain = models.CharField(max_length=255, null=True, blank=True, db_index=True)
     
-
     def __str__(self):
         return self.title
-    
-    # @property
-    # def domain(self):
-    #     o = urlparse(self.url)
-    #     return o.hostname
 
     def can_be_downvoted_by(self, user):
         return False
-
-    # def Kcomments(self):
-    #     return self.comments
-    #     return {
-    #         'all': self.get_descendants() # lambda: [i.comment for i in self.get_descendants().select_related('comment')]
-    #     }
-    #     return self.comments
 
 
 class Comment(Item):
@@ -112,7 +97,6 @@ class Comment(Item):
 
     def comments(self):
         return {
-            #'all': lambda: [i.comment for i in self.get_descendants().select_related('comment')]
             'all': lambda: [i.comment for i in self.get_descendants()]
         }
 
@@ -122,7 +106,6 @@ class Vote(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     changed_at = models.DateTimeField(auto_now=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    # vote = None # -1 | 0 | 1 --> BooleanField(default=None, null=True)??
     vote = models.SmallIntegerField(default=1)
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
 

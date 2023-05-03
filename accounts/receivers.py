@@ -12,6 +12,12 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import os
 
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 from .models import CustomUser, Invitation, EmailVerification, PasswordResetRequest
 
 
@@ -29,7 +35,7 @@ def send_invitation_email(sender, instance, created, **kwargs):
     message = ''
     from_email = 'enedeniz2020@gmail.com'
     recipient_list = ['de2115@nyu.edu']
-    api_key = ''
+    api_key = os.environ['SENDGRID_API_KEY']
     
     if not os.path.exists('sent_emails.txt'):
         open('sent_emails.txt', 'w').close()
@@ -122,7 +128,7 @@ def send_verification_email(sender, instance, created, **kwargs):
     message = 'This is a test email sent from Django using SendGrid.'
     from_email = 'enedeniz2020@gmail.com'
     recipient_list = ['de2115@nyu.edu']
-    api_key = ''
+    api_key = os.environ['SENDGRID_API_KEY']
     if not os.path.exists('sent_emails.txt'):
         open('sent_emails.txt', 'w').close()
 

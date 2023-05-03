@@ -96,7 +96,6 @@ class BasicNewsTest(TestCase):
         item = Item.objects.get(pk=pk)
         self.assertEqual(item.upvotes, 2)
         self.assertEqual(item.points, 2)
-        #self.assertEqual(self.other_user.karma, 1) # Karma of submitting user should have increased
         self.assertEqual(item.user.karma, 1) # Karma of submitting user should have increased
         self.assertEqual(CustomUser.objects.get(pk=self.user.pk).karma, 0) # Karma of voting user should have stayed the same
 
