@@ -32,9 +32,9 @@ class RegisterForm(forms.ModelForm):
         if len(password) < self.MIN_LENGTH:
             raise forms.ValidationError(
                 "Your password must be at least %d characters long." % self.MIN_LENGTH)
-        # if re.search('^[a-z]+[0-9]+@nyu.edu$', password) is None:
-        #     raise forms.ValidationError(
-        #         "Your email does not belong to an NYU domain. Try again with an NYU email. ")
+        if re.search('^[a-z]+[0-9]+@nyu.edu$', password) is None:
+            raise forms.ValidationError(
+                "Your email does not belong to an NYU domain. Try again with an NYU email. ")
         return password
 
 
