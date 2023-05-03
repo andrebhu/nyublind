@@ -29,7 +29,7 @@ def send_invitation_email(sender, instance, created, **kwargs):
     message = ''
     from_email = 'enedeniz2020@gmail.com'
     recipient_list = ['de2115@nyu.edu']
-    api_key = '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'
+    api_key = ''
     
     if not os.path.exists('sent_emails.txt'):
         open('sent_emails.txt', 'w').close()
@@ -122,7 +122,7 @@ def send_verification_email(sender, instance, created, **kwargs):
     message = 'This is a test email sent from Django using SendGrid.'
     from_email = 'enedeniz2020@gmail.com'
     recipient_list = ['de2115@nyu.edu']
-    api_key = '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'
+    api_key = ''
     if not os.path.exists('sent_emails.txt'):
         open('sent_emails.txt', 'w').close()
 
