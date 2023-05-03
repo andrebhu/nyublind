@@ -132,16 +132,16 @@ def show(request):
     return render(request, 'news/index.html', {'stories': stories, 'hide_text':True, 'page': page, 'rank_start': page*settings.PAGING_SIZE})
 
 
-@ratelimit(key="user_or_ip", group="news-get", rate=DEFAULT_GET_RATE, block=True)
-def ask(request):
-    page = int(request.GET.get('p', 0))
-    stories = lambda: list(_front_page(page=page, add_filter={'is_ask': True}))
-    stories = cache.get_or_set("news-ask-%s"%(page), stories, timeout=TIMEOUT_MEDIUM) # one minute
-    if len(stories) < 1 and page != 0:
-        back = _one_page_back(request)
-        if back:
-            return back
-    return render(request, 'news/index.html', {'stories': stories, 'hide_text':True, 'page': page, 'rank_start': page*settings.PAGING_SIZE})
+# @ratelimit(key="user_or_ip", group="news-get", rate=DEFAULT_GET_RATE, block=True)
+# def ask(request):
+#     page = int(request.GET.get('p', 0))
+#     stories = lambda: list(_front_page(page=page, add_filter={'is_ask': True}))
+#     stories = cache.get_or_set("news-ask-%s"%(page), stories, timeout=TIMEOUT_MEDIUM) # one minute
+#     if len(stories) < 1 and page != 0:
+#         back = _one_page_back(request)
+#         if back:
+#             return back
+#     return render(request, 'news/index.html', {'stories': stories, 'hide_text':True, 'page': page, 'rank_start': page*settings.PAGING_SIZE})
 
 
 @ratelimit(key="user_or_ip", group="news-get", rate=DEFAULT_GET_RATE, block=True)
@@ -174,28 +174,28 @@ def newest(request): # Done
     return render(request, 'news/index.html', {'stories': stories, 'hide_text':True, 'page': page, 'rank_start': page*settings.PAGING_SIZE})
 
 
-@login_required
-@ratelimit(key="user_or_ip", group="news-get", rate=DEFAULT_GET_RATE, block=True)
-@cache_page(TIMEOUT_SHORT)
-@vary_on_cookie
-def threads(request):
-    page = int(request.GET.get('p', 0))
-    paging_size = settings.PAGING_SIZE
-    tree = Comment.objects.filter( tree_id=OuterRef('tree_id'), user=OuterRef('user')).values('tree_id', 'user__pk').annotate(min_level=Min('level')).order_by()
-    stories = Comment.objects.filter(
-        user=request.user
-    ).filter(
-        Q(level__in=Subquery(tree.values('min_level'), output_field=models.IntegerField()))  # TODO: level= or level__in= ???
-    ).select_related(
-        'user', 'parent', 'to_story'
-    ).order_by(
-        '-created_at'
-    )[(page*paging_size):(page+1)*(paging_size)]
-    if len(stories) < 1 and page != 0:
-        back = _one_page_back(request)
-        if back:
-            return back
-    return render(request, 'news/index.html', {'stories': stories, 'hide_text':False, 'page': page, 'rank_start': None, 'show_children': True})
+# @login_required
+# @ratelimit(key="user_or_ip", group="news-get", rate=DEFAULT_GET_RATE, block=True)
+# @cache_page(TIMEOUT_SHORT)
+# @vary_on_cookie
+# def threads(request):
+#     page = int(request.GET.get('p', 0))
+#     paging_size = settings.PAGING_SIZE
+#     tree = Comment.objects.filter( tree_id=OuterRef('tree_id'), user=OuterRef('user')).values('tree_id', 'user__pk').annotate(min_level=Min('level')).order_by()
+#     stories = Comment.objects.filter(
+#         user=request.user
+#     ).filter(
+#         Q(level__in=Subquery(tree.values('min_level'), output_field=models.IntegerField()))  # TODO: level= or level__in= ???
+#     ).select_related(
+#         'user', 'parent', 'to_story'
+#     ).order_by(
+#         '-created_at'
+#     )[(page*paging_size):(page+1)*(paging_size)]
+#     if len(stories) < 1 and page != 0:
+#         back = _one_page_back(request)
+#         if back:
+#             return back
+#     return render(request, 'news/index.html', {'stories': stories, 'hide_text':False, 'page': page, 'rank_start': None, 'show_children': True})
 
 
 @ratelimit(key="user_or_ip", group="news-get", rate=DEFAULT_GET_RATE, block=True)
@@ -385,16 +385,16 @@ def submit(request): # DONE
     return render(request, 'news/submit.html', {'form': form})
 
 
-def robots_txt(request):
-    return HttpResponse("""
-User-agent: *
-Disallow: 
-    """, content_type='text/plain')
+# def robots_txt(request):
+#     return HttpResponse("""
+# User-agent: *
+# Disallow: 
+#     """, content_type='text/plain')
 
-def humans_txt(request):
-    return HttpResponse("""
-🐍
-    """, content_type='text/plain', charset='utf-8')
+# def humans_txt(request):
+#     return HttpResponse("""
+# 🐍
+#     """, content_type='text/plain', charset='utf-8')
 
 
 def bookmarklet(request):

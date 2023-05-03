@@ -9,6 +9,7 @@ headers = {"Authorization": "Bearer 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"}
 TOXIC_THRESHOLD = 0.3
 
 
+# Call API model to detect toxicity in post
 def query(payload):
     response = requests.post(API_URL, headers=headers,
                              json=payload, timeout=30)

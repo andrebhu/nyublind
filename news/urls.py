@@ -9,10 +9,10 @@ from .feeds import NewestFeed, FrontPageFeed
 urlpatterns = [
     path('', views.index, name="index"),
     path('newest', views.newest, name="newest"),
-    path('threads', views.threads, name="threads"),
+    # path('threads', views.threads, name="threads"),
     path('comments', views.comments, name="comments"),
-    path('show', views.show, name="show"),
-    path('ask', views.ask, name="ask"),
+    # path('show', views.show, name="show"),
+    # path('ask', views.ask, name="ask"),
     path('zen', views.zen, name="zen"),
     path('item/<uuid:pk>', views.item, name="item"),
     path('item/<uuid:pk>/upvote', views.upvote, name="upvote"), # TODO
@@ -24,7 +24,7 @@ urlpatterns = [
     path('newest/feed/', NewestFeed()),
     path('feed/', FrontPageFeed()),
 
-    path('robots.txt', views.robots_txt, name="robots_txt"),
-    path('humans.txt', views.humans_txt, name="humans_txt"),
+    # path('robots.txt', views.robots_txt, name="robots_txt"),
+    # path('humans.txt', views.humans_txt, name="humans_txt"),
     path('bookmarklet', views.bookmarklet, name="bookmarklet"),
 ]
