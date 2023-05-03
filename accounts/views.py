@@ -80,7 +80,7 @@ def register(request):
             instance.save()
             login(request, instance)
             return HttpResponseRedirect(instance.get_absolute_url())
-    return render(request, 'accounts/register.html', {'form': form, 'error': 'Your email does not belong to an NYU domain. Try again with an NYU email.'})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 def verify(request, verification_code):
