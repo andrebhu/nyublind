@@ -9,7 +9,7 @@ from django.http import HttpResponse
 urlpatterns = [
     path('', include('news.urls')),
     path('', include('accounts.urls')),
-    path('digest/', include('emaildigest.urls')),
+    # path('digest/', include('emaildigest.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

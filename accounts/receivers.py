@@ -21,6 +21,7 @@ def lower_email_addresses(sender, instance, **kwargs):
 
 @receiver(post_save)
 def send_invitation_email(sender, instance, created, **kwargs):
+    return
     if created and isinstance(instance, Invitation):
         subject, from_email, to = 'You have been invited to %s'%(settings.SITE_DOMAIN), 'bot@python.sc', instance.invited_email_address
         text_content = """
@@ -59,6 +60,7 @@ def create_verification(sender, instance, created, **kwargs):
 
 @receiver(post_save)
 def send_verification_email(sender, instance, created, **kwargs):
+    return 
     if created and isinstance(instance, EmailVerification):
         subject, from_email, to = 'Please confirm your account on news.python.sc', 'bot@python.sc', instance.email
         text_content = """
