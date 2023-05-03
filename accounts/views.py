@@ -68,16 +68,19 @@ def register(request):
     if not settings.ACCEPT_UNINVITED_REGISTRATIONS and (invitation is None or not getattr(invitation, 'active', False)):
         return render(request, 'accounts/register_closed.html')
     form = RegisterForm(request.POST or None, instance=instance)
+
     if request.method == 'POST':
         if form.is_valid():
-
-            # instance = form.save()
+            instance = form.save()
+            email = form.cleaned_data['email']
+            if re.search(r'^[a-z]+[0-9]+@nyu.edu$', email) == None:
+                return render(request, 'accounts/register.html', {'form': form, 'error': 'Your email does not belong to an NYU domain. Try again with an NYU email.'})
             instance.set_password(form.cleaned_data['password'])
             instance.is_active = True
             instance.save()
             login(request, instance)
             return HttpResponseRedirect(instance.get_absolute_url())
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form, 'error': 'Your email does not belong to an NYU domain. Try again with an NYU email.'})
 
 
 def verify(request, verification_code):

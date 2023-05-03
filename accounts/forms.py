@@ -12,6 +12,9 @@ class ProfileForm(forms.ModelForm):
 
     def clean_email(self):
         data = self.cleaned_data['email']
+        if re.search(r'^[a-z]+[0-9]+@nyu.edu$', data) == None:
+            raise forms.ValidationError(
+                "Your email does not belong to an NYU domain. Try again with an NYU email. ")
         if data:
             data = data.lower()
         return data
@@ -32,9 +35,6 @@ class RegisterForm(forms.ModelForm):
         if len(password) < self.MIN_LENGTH:
             raise forms.ValidationError(
                 "Your password must be at least %d characters long." % self.MIN_LENGTH)
-        if re.search('^[a-z]+[0-9]+@nyu.edu$', password) == password:
-            raise forms.ValidationError(
-                "Your email does not belong to an NYU domain. Try again with an NYU email. ")
         return password
 
 
@@ -45,6 +45,9 @@ class CreateInviteForm(forms.ModelForm):
 
     def clean_invited_email_address(self):
         invited_email_address = self.cleaned_data['invited_email_address']
+        if re.search(r'^[a-z]+[0-9]+@nyu.edu$', invited_email_address) == None:
+            raise forms.ValidationError(
+                "Your email does not belong to an NYU domain. Try again with an NYU email. ")
         if invited_email_address:
             invited_email_address = invited_email_address.lower()
         return invited_email_address
