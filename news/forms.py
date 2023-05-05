@@ -12,15 +12,11 @@ headers = {"Authorization": f"Bearer {HF_KEY}"}
 
 TOXIC_THRESHOLD = 0.3
 
-
 # Call API model to detect toxicity in post
 # Return True means it is toxic
 def query(payload):
-
     response = requests.post(API_URL, headers=headers,
                              json=payload, timeout=30)
-
-    # Remove later, used for demoing
     try:
         print(response.json()[0])
         for item in response.json()[0]:
@@ -28,7 +24,6 @@ def query(payload):
                 return True
     except:
         return False
-
     return False
 
 
